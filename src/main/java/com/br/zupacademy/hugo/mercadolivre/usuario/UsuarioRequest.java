@@ -1,5 +1,7 @@
 package com.br.zupacademy.hugo.mercadolivre.usuario;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -17,7 +19,7 @@ public class UsuarioRequest {
         this.senhaLimpa = senhaLimpa;
     }
 
-    public Usuario toModel(){
-        return new Usuario(login, senhaLimpa);
+    public Usuario toModel(BCryptPasswordEncoder encoder){
+        return new Usuario(login, senhaLimpa, encoder);
     }
 }

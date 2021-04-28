@@ -1,6 +1,7 @@
 package com.br.zupacademy.hugo.mercadolivre.usuario;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,9 +25,9 @@ public class Usuario {
     @CreationTimestamp
     private LocalDateTime instanteDeRegistro;
 
-    public Usuario(@NotBlank @Email String login, @NotBlank @Size(min = 6) String senha) {
+    public Usuario(@NotBlank @Email String login, @NotBlank @Size(min = 6) String senha, BCryptPasswordEncoder encoder) {
         this.login = login;
-        this.senha = senha;
+        this.senha = encoder.encode(senha);
     }
 }
 
