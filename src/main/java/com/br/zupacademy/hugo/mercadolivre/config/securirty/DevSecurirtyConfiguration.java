@@ -2,9 +2,6 @@ package com.br.zupacademy.hugo.mercadolivre.config.securirty;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.SecurityBuilder;
-import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -12,10 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.security.SecureRandom;
-
 /**
- * Essa classe será usada apenas em ambiente de desenvolvimento, por isso o acesso a todas as rotas estará liberado.
+ * Essa classe será usada apenas em ambiente de desenvolvimento, por isso o acesso a todos os recursos esta liberado.
  */
 @EnableWebSecurity
 @Configuration
