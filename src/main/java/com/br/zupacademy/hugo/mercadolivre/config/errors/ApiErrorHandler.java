@@ -20,8 +20,8 @@ public class ApiErrorHandler {
     @Autowired
     private MessageSource messageSource;
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     public List<ApiErrorResponse> handleMethodArgumentNotValid(MethodArgumentNotValidException exception){
         List<ApiErrorResponse> errors = new ArrayList<>();
 
@@ -38,6 +38,7 @@ public class ApiErrorHandler {
                     messageSource.getMessage(objectError, LocaleContextHolder.getLocale())));
         });
 
+        System.out.println(errors);
         return errors;
     }
 }

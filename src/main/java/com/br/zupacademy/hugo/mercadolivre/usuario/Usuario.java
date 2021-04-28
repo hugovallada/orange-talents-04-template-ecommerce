@@ -19,14 +19,14 @@ public class Usuario {
     private Long id;
 
     private @NotBlank @Email String login;
-    private @NotBlank @Email String senha;
+    private @NotBlank @Size(min = 6) String senha;
 
     @CreationTimestamp
     private LocalDateTime instanteDeRegistro;
 
-    public Usuario(@NotBlank @Email String login, @NotBlank @Size(min = 6) String senhaLimpa) {
+    public Usuario(@NotBlank @Email String login, @NotBlank @Size(min = 6) String senha) {
         this.login = login;
-        senha = senhaLimpa;
+        this.senha = senha;
     }
 }
 

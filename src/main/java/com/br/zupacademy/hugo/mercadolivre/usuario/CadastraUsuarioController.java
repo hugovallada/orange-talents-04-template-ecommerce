@@ -16,6 +16,7 @@ public class CadastraUsuarioController {
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public void cadastrarAutores(@RequestBody @Valid UsuarioRequest usuarioRequest){
+        Usuario usuario = usuarioRequest.toModel();
         usuarioRepository.save(usuarioRequest.toModel());
     }
 
