@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @RestController
@@ -22,6 +23,7 @@ public class CadastraUsuarioController {
     }
 
     @PostMapping
+    @Transactional
     @ResponseStatus(code = HttpStatus.CREATED)
     public void cadastrarAutores(@RequestBody @Valid UsuarioRequest usuarioRequest){
         usuarioRepository.save(usuarioRequest.toModel(encoder));

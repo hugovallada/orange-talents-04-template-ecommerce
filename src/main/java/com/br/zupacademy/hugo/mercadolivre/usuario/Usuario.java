@@ -25,9 +25,21 @@ public class Usuario {
     @CreationTimestamp
     private LocalDateTime instanteDeRegistro;
 
+    /**
+     *
+     * @param login string no formato de email
+     * @param senha string em texto limpo
+     * @param encoder uma instância de BCryptEncoder que será utilizado para criptografar a senha limpa passada
+     */
     public Usuario(@NotBlank @Email String login, @NotBlank @Size(min = 6) String senha, BCryptPasswordEncoder encoder) {
         this.login = login;
         this.senha = encoder.encode(senha);
     }
+
+    /**
+     * Construtor específico do JPA
+     */
+    @Deprecated
+    public Usuario(){}
 }
 
