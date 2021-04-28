@@ -2,20 +2,20 @@ package com.br.zupacademy.hugo.mercadolivre.config.errors;
 
 public class ApiErrorResponse {
 
-    private String field;
+    private String campo;
 
-    private String message;
+    private String mensagem;
 
-    public ApiErrorResponse(String field, String message) {
-        this.field = field;
-        this.message = message;
+    public ApiErrorResponse(String campo, String mensagem) {
+        this.campo = campo;
+        this.mensagem = mensagem;
     }
 
-    public String getField() {
-        return field;
+    public String getCampo() {
+        return campo;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMensagem() {
+        return mensagem;
     }
 }
