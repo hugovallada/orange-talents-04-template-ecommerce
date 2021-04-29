@@ -14,12 +14,18 @@ public class Categoria {
     @NotBlank
     private String nome;
 
-    @NotNull
     @ManyToOne
     private Categoria categoria;
 
-    public Categoria(@NotBlank String nomea) {
+    public Categoria(@NotBlank String nome) {
         this.nome = nome;
+    }
+
+    /**
+     * @deprecated Construtor de uso exclusivo da JPA
+     */
+    @Deprecated
+    public Categoria() {
     }
 
     public void setCategoria(Categoria categoria) {

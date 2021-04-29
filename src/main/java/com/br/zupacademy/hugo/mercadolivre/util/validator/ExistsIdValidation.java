@@ -16,6 +16,8 @@ public class ExistsIdValidation implements ConstraintValidator<ExistsId, Long> {
 
     private Class<?> targetClass;
 
+    private boolean aceitaNull;
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -23,10 +25,14 @@ public class ExistsIdValidation implements ConstraintValidator<ExistsId, Long> {
     public void initialize(ExistsId constraintAnnotation) {
         campo = constraintAnnotation.campo();
         targetClass = constraintAnnotation.targetClass();
+        aceitaNull = constraintAnnotation.aceitaNull();
     }
+
 
     @Override
     public boolean isValid(Long value, ConstraintValidatorContext context) {
+        if(aceitaNull && value == null) return true;
+
         Query query = entityManager.createQuery("Select 1 from " + targetClass.getName() + " where " + campo + "= :value");
         query.setParameter("value", value);
         List<?> listaResultado = query.getResultList();

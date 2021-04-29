@@ -14,6 +14,7 @@ public @interface ExistsId {
 
     Class<?> targetClass();
     String campo();
+    boolean aceitaNull() default false;
     String message() default "O campo não existe";
     Class<?>[] groups() default { };
     Class<? extends Payload>[] payload() default { };
