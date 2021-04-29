@@ -31,7 +31,11 @@ public class ExistsIdValidation implements ConstraintValidator<ExistsId, Long> {
 
     @Override
     public boolean isValid(Long value, ConstraintValidatorContext context) {
-        if(aceitaNull && value == null) return true;
+        if(aceitaNull && value == null){
+            return true;
+        }
+
+        Assert.isTrue(value != null, "O id não pode ser nulo");
 
         Query query = entityManager.createQuery("Select 1 from " + targetClass.getName() + " where " + campo + "= :value");
         query.setParameter("value", value);
@@ -41,4 +45,6 @@ public class ExistsIdValidation implements ConstraintValidator<ExistsId, Long> {
 
         return listaResultado.size() == 1;
     }
+
+
 }
