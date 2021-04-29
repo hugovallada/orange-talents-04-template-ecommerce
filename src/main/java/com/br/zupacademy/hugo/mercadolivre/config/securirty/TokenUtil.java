@@ -1,6 +1,7 @@
 package com.br.zupacademy.hugo.mercadolivre.config.securirty;
 
 import com.br.zupacademy.hugo.mercadolivre.usuario.Usuario;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,5 +30,22 @@ public class TokenUtil {
                 .setExpiration(new Date(currentDate.getTime() + Long.parseLong(jwtExpiration)))
                 .signWith(SignatureAlgorithm.HS256, jwtSecret)
                 .compact();
+    }
+
+    public boolean isTokenValido(String token){
+        try{
+            Jwts.parser().setSigningKey(jwtSecret)
+                    .parseClaimsJws(token);
+            return true;
+        }catch (Exception e) {
+            return false;
+        }
+    }
+
+    public Long getIdUsuario(String token) {
+        Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token)
+                .getBody();
+
+        return Long.parseLong(claims.getSubject());
     }
 }
