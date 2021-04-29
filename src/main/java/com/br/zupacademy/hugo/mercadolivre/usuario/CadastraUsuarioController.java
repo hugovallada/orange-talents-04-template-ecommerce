@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/autores")
+@RequestMapping("/usuarios")
 public class CadastraUsuarioController {
 
    private final UsuarioRepository usuarioRepository;
