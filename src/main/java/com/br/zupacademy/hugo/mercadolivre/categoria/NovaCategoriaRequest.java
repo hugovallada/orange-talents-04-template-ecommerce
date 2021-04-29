@@ -36,7 +36,7 @@ public class NovaCategoriaRequest {
         if(categoriaId != null) {
             Optional<Categoria> categoriaOpt = repository.findById(categoriaId);
             if(categoriaOpt.isPresent()){
-                categoria.setCategoria(categoriaOpt.get());
+                categoria.setCategoriaMae(categoriaOpt.get());
             }
         }
 

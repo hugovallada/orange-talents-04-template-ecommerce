@@ -15,7 +15,7 @@ public class Categoria {
     private String nome;
 
     @ManyToOne
-    private Categoria categoria;
+    private Categoria categoriaMae;
 
     public Categoria(@NotBlank String nome) {
         this.nome = nome;
@@ -28,7 +28,15 @@ public class Categoria {
     public Categoria() {
     }
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public void setCategoriaMae(Categoria categoriaMae) {
+        this.categoriaMae = categoriaMae;
+    }
+
+    public Categoria getCategoriaMae() {
+        return categoriaMae;
+    }
+
+    public String getNome() {
+        return nome;
     }
 }
