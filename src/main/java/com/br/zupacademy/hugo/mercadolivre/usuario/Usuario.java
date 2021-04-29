@@ -4,6 +4,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -37,6 +38,10 @@ public class Usuario implements UserDetails {
      * @param encoder uma instância de BCryptEncoder que será utilizado para criptografar a senha limpa passada
      */
     public Usuario(@NotBlank @Email String login, @NotBlank @Size(min = 6) String senha, BCryptPasswordEncoder encoder) {
+        Assert.hasText(login, "O login não pode ser nulo ou em branco");
+        Assert.notNull(senha, "A senha não pode ser nula");
+        Assert.state(senha.length() >= 6, "A senha deve ter no mínimo 6 caracteres");
+
         this.login = login;
         this.senha = encoder.encode(senha);
     }
