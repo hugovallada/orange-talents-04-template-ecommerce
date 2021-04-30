@@ -72,4 +72,8 @@ public class Produto {
 
         Assert.isTrue(caracteristicaProdutos.size() >= 3, "O produto deve ter pelo menos 3 características");
     }
+
+    public Set<CaracteristicaProduto> getCaracteristicaProdutos() {
+        return caracteristicaProdutos;
+    }
 }
