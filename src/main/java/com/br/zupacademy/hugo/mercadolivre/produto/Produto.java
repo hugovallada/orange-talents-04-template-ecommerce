@@ -32,6 +32,7 @@ public class Produto {
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
     @Size(min = 3)
+    @Valid
     private Set<CaracteristicaProduto> caracteristicaProdutos = new HashSet<>();
 
     private @NotBlank @Size(max = 1000) String descricao;
@@ -57,7 +58,7 @@ public class Produto {
     }
 
     public Produto(@NotBlank String nome,@Positive @NotNull BigDecimal valor,@PositiveOrZero @NotNull Integer quantidade,
-                   @Size(min = 3)  Set<NovaCaracteristicaRequest> caracteristicaProdutos,
+                   @Size(min = 3) @NotNull @Valid  Set<NovaCaracteristicaRequest> caracteristicaProdutos,
                    @NotBlank @Size(max = 1000) String descricao, @NotNull @Valid Categoria categoria,
                    @NotNull @Valid Usuario usuario) {
 

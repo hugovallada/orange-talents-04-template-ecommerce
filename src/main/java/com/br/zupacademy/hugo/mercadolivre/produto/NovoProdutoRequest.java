@@ -7,6 +7,7 @@ import com.br.zupacademy.hugo.mercadolivre.usuario.Usuario;
 import com.br.zupacademy.hugo.mercadolivre.util.validator.ExistsId;
 import io.jsonwebtoken.lang.Assert;
 
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -20,7 +21,7 @@ public class NovoProdutoRequest {
 
     private @PositiveOrZero @NotNull  Integer quantidade;
 
-    @NotNull @Size(min = 3)
+    @NotNull @Size(min = 3) @Valid
     private Set<NovaCaracteristicaRequest> caracteristicas = new HashSet<>();
 
     private @NotBlank @Size(max = 1000) String descricao;
@@ -28,7 +29,11 @@ public class NovoProdutoRequest {
     @NotNull @ExistsId(targetClass = Categoria.class, campo = "id")
     private Long categoriaId;
 
-    public NovoProdutoRequest(String nome, BigDecimal valor, Integer quantidade, Set<NovaCaracteristicaRequest> caracteristicas, String descricao, Long categoriaId) {
+
+    public NovoProdutoRequest(
+            @NotBlank String nome, @NotNull @Positive BigDecimal valor, @NotNull @PositiveOrZero Integer quantidade,
+            @NotNull @Size(min = 3) @Valid Set<NovaCaracteristicaRequest> caracteristicas,
+            @NotBlank @Size(max = 1000) String descricao, @NotNull Long categoriaId) {
         this.nome = nome;
         this.valor = valor;
         this.quantidade = quantidade;
@@ -44,5 +49,9 @@ public class NovoProdutoRequest {
         Assert.notNull(usuario, "O usuário não deve ser nulo");
        return new Produto(nome, valor, quantidade, caracteristicas, descricao, categoria, usuario);
 
+    }
+
+    public Set<NovaCaracteristicaRequest> getCaracteristicas() {
+        return caracteristicas;
     }
 }

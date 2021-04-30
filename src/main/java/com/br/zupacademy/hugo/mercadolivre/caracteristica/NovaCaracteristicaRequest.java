@@ -11,7 +11,7 @@ public class NovaCaracteristicaRequest {
 
     private @NotBlank String descricao;
 
-    public NovaCaracteristicaRequest(String nome, String descricao) {
+    public NovaCaracteristicaRequest(@NotBlank String nome, @NotBlank String descricao) {
         this.nome = nome;
         this.descricao = descricao;
     }
@@ -33,5 +33,11 @@ public class NovaCaracteristicaRequest {
         return new CaracteristicaProduto(nome, descricao, produto);
     }
 
+    public String getNome() {
+        return nome;
+    }
 
+    public String getDescricao() {
+        return descricao;
+    }
 }
