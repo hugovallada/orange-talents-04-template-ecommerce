@@ -30,4 +30,10 @@ public class CaracteristicaProduto {
         this.produto = produto;
     }
 
+    /**
+     * @deprecated Construtor de uso exclusivo da JPA
+     */
+    @Deprecated
+    public CaracteristicaProduto() {
+    }
 }

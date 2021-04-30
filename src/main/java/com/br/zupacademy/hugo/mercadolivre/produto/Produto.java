@@ -3,6 +3,7 @@ package com.br.zupacademy.hugo.mercadolivre.produto;
 import com.br.zupacademy.hugo.mercadolivre.caracteristica.CaracteristicaProduto;
 import com.br.zupacademy.hugo.mercadolivre.caracteristica.NovaCaracteristicaRequest;
 import com.br.zupacademy.hugo.mercadolivre.categoria.Categoria;
+import com.br.zupacademy.hugo.mercadolivre.usuario.Usuario;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.util.Assert;
 
@@ -35,9 +36,15 @@ public class Produto {
 
     private @NotBlank @Size(max = 1000) String descricao;
 
+    @NotNull
     @ManyToOne
     @Valid
     private Categoria categoria;
+
+    @NotNull
+    @ManyToOne
+    @Valid
+    private Usuario usuario;
 
     @CreationTimestamp
     private LocalDateTime instanteCadastro;
@@ -51,7 +58,8 @@ public class Produto {
 
     public Produto(@NotBlank String nome,@Positive @NotNull BigDecimal valor,@PositiveOrZero @NotNull Integer quantidade,
                    @Size(min = 3)  Set<NovaCaracteristicaRequest> caracteristicaProdutos,
-                   @NotBlank @Size(max = 1000) String descricao, @NotNull @Valid Categoria categoria) {
+                   @NotBlank @Size(max = 1000) String descricao, @NotNull @Valid Categoria categoria,
+                   @NotNull @Valid Usuario usuario) {
 
         this.nome = nome;
         this.valor = valor;
@@ -59,6 +67,7 @@ public class Produto {
         this.caracteristicaProdutos.addAll(caracteristicaProdutos.stream().map(caracteristica -> caracteristica.toModel(this)).collect(Collectors.toSet()));
         this.descricao = descricao;
         this.categoria = categoria;
+        this.usuario = usuario;
 
         Assert.isTrue(caracteristicaProdutos.size() >= 3, "O produto deve ter pelo menos 3 características");
     }

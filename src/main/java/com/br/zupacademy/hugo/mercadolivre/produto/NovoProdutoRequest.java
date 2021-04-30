@@ -3,6 +3,7 @@ package com.br.zupacademy.hugo.mercadolivre.produto;
 import com.br.zupacademy.hugo.mercadolivre.caracteristica.NovaCaracteristicaRequest;
 import com.br.zupacademy.hugo.mercadolivre.categoria.Categoria;
 import com.br.zupacademy.hugo.mercadolivre.categoria.CategoriaRepository;
+import com.br.zupacademy.hugo.mercadolivre.usuario.Usuario;
 import com.br.zupacademy.hugo.mercadolivre.util.validator.ExistsId;
 import io.jsonwebtoken.lang.Assert;
 
@@ -36,12 +37,12 @@ public class NovoProdutoRequest {
         this.categoriaId = categoriaId;
     }
 
-    public Produto toModel(CategoriaRepository categoriaRepository){
+    public Produto toModel(CategoriaRepository categoriaRepository, Usuario usuario){
        @NotNull Categoria categoria =  categoriaRepository.findById(categoriaId).get();
 
         Assert.notNull(categoria, "A categoria não pode ser nula");
-
-       return new Produto(nome, valor, quantidade, caracteristicas, descricao, categoria);
+        Assert.notNull(usuario, "O usuário não deve ser nulo");
+       return new Produto(nome, valor, quantidade, caracteristicas, descricao, categoria, usuario);
 
     }
 }
