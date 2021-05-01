@@ -76,8 +76,10 @@ public class ProdutoController {
 
         Produto produto = produtoOptional.get();
 
-        if(produto.getUsuario().getId() == usuario.getId()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Você não pode dar opinião no seu próprio produto");
+        if(produto.getUsuario().getId() == usuario.getId()) throw new AccessDeniedException("Você não pode dar opinião no seu próprio produto");
 
+        produto.associarOpiniao(opiniaoRequest.toModel(produto, usuario));
 
+        produtoRepository.save(produto);
     }
 }

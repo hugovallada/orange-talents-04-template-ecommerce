@@ -2,6 +2,7 @@ package com.br.zupacademy.hugo.mercadolivre.produto.opiniao;
 
 import com.br.zupacademy.hugo.mercadolivre.produto.Produto;
 import com.br.zupacademy.hugo.mercadolivre.usuario.Usuario;
+import org.springframework.context.annotation.DependsOn;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -36,5 +37,10 @@ public class OpiniaoProduto {
         this.usuario = usuario;
     }
 
-
+    /**
+     * @deprecated Construtor de uso exclusivo da JPA
+     */
+    @Deprecated
+    public OpiniaoProduto() {
+    }
 }
