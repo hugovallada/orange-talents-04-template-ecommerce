@@ -3,6 +3,7 @@ package com.br.zupacademy.hugo.mercadolivre.produto;
 import com.br.zupacademy.hugo.mercadolivre.categoria.CategoriaRepository;
 import com.br.zupacademy.hugo.mercadolivre.produto.imagem.NovaImagemRequest;
 import com.br.zupacademy.hugo.mercadolivre.produto.imagem.Uploader;
+import com.br.zupacademy.hugo.mercadolivre.produto.opiniao.NovaOpiniaoRequest;
 import com.br.zupacademy.hugo.mercadolivre.usuario.Usuario;
 import com.br.zupacademy.hugo.mercadolivre.util.validator.ExistsId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/produtos")
-public class CadastroProdutoController {
+public class ProdutoController {
 
     @Autowired
     private ProdutoRepository produtoRepository;
@@ -61,6 +62,14 @@ public class CadastroProdutoController {
         }
 
         throw new EntityNotFoundException("Não foi possível encontrar um produto com id " + idProduto);
+
+    }
+
+    @PostMapping("/{idProduto}/opiniao")
+    @Transactional
+    public void cadastrarOpiniao(@RequestBody @Valid NovaOpiniaoRequest opiniaoRequest,
+                                 @PathVariable Long idProduto,
+                                 @AuthenticationPrincipal Usuario usuario){
 
     }
 }
