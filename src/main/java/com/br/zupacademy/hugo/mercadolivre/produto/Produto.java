@@ -4,6 +4,7 @@ import com.br.zupacademy.hugo.mercadolivre.caracteristica.CaracteristicaProduto;
 import com.br.zupacademy.hugo.mercadolivre.caracteristica.NovaCaracteristicaRequest;
 import com.br.zupacademy.hugo.mercadolivre.categoria.Categoria;
 import com.br.zupacademy.hugo.mercadolivre.produto.imagem.ImagemProduto;
+import com.br.zupacademy.hugo.mercadolivre.produto.opiniao.OpiniaoProduto;
 import com.br.zupacademy.hugo.mercadolivre.usuario.Usuario;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.util.Assert;
@@ -54,6 +55,9 @@ public class Produto {
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     private List<ImagemProduto> imagensProduto;
+
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
+    private List<OpiniaoProduto> opinioesProdutos;
 
     /**
      * @deprecated Cosntrutor de uso exclusivo do JPA
@@ -116,5 +120,9 @@ public class Produto {
 
     public void associarImagens(List<String> links) {
         imagensProduto.addAll(links.stream().map(link -> new ImagemProduto(link, this)).collect(Collectors.toList()));
+    }
+
+    public void associarOpiniao(OpiniaoProduto opiniaoProduto){
+        opinioesProdutos.add(opiniaoProduto);
     }
 }

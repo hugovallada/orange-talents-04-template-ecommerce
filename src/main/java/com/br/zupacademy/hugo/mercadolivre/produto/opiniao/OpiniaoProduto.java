@@ -7,7 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 @Entity
-public class Opiniao {
+public class OpiniaoProduto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,11 +28,13 @@ public class Opiniao {
     @NotNull @ManyToOne
     private Usuario usuario;
 
-    public Opiniao(Integer nota, String titulo, String descricao, Produto produto, Usuario usuario) {
+    public OpiniaoProduto(Integer nota, String titulo, String descricao, Produto produto, Usuario usuario) {
         this.nota = nota;
         this.titulo = titulo;
         this.descricao = descricao;
         this.produto = produto;
         this.usuario = usuario;
     }
+
+
 }
