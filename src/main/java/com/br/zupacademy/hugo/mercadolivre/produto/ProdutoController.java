@@ -70,6 +70,14 @@ public class ProdutoController {
     public void cadastrarOpiniao(@RequestBody @Valid NovaOpiniaoRequest opiniaoRequest,
                                  @PathVariable Long idProduto,
                                  @AuthenticationPrincipal Usuario usuario){
+        Optional<Produto> produtoOptional = produtoRepository.findById(idProduto);
+
+        if(produtoOptional.isEmpty()) throw new EntityNotFoundException("Não foi possível encontrar um produto com o id " + idProduto);
+
+        Produto produto = produtoOptional.get();
+
+        if(produto.getUsuario().getId() == usuario.getId()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Você não pode dar opinião no seu próprio produto");
+
 
     }
 }
