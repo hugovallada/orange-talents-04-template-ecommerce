@@ -47,4 +47,16 @@ public class Pergunta {
     public Usuario getUsuario() {
         return usuario;
     }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public LocalDateTime getInstanteDeRegistro() {
+        return instanteDeRegistro;
+    }
 }

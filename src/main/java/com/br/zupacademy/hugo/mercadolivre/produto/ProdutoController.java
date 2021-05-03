@@ -87,4 +87,18 @@ public class ProdutoController {
         produtoRepository.save(produto);
     }
 
+
+    @GetMapping("/{idProduto}")
+    public ResponseEntity<ProdutoDetalheResponse> detalharProduto(@PathVariable Long idProduto){
+        Optional<Produto> produtoOptional = produtoRepository.findById(idProduto);
+
+        if(produtoOptional.isPresent()){
+            ProdutoDetalheResponse response = ProdutoDetalheResponse.toResponse(produtoOptional.get());
+            System.out.println(response);
+            return ResponseEntity.ok(response);
+        }
+
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "O produto com id " + idProduto + " não foi encontrado");
+    }
+
 }

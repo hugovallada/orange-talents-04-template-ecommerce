@@ -35,4 +35,12 @@ public class ImagemProduto {
     @Deprecated
     public ImagemProduto() {
     }
+
+    public String getLink() {
+        return link;
+    }
+
+    public Long getId() {
+        return id;
+    }
 }

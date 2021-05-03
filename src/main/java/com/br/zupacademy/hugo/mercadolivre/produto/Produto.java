@@ -122,6 +122,18 @@ public class Produto {
         return instanteCadastro;
     }
 
+    public List<ImagemProduto> getImagensProduto() {
+        return imagensProduto;
+    }
+
+    public List<OpiniaoProduto> getOpinioesProdutos() {
+        return opinioesProdutos;
+    }
+
+    public List<Pergunta> getPerguntas() {
+        return perguntas;
+    }
+
     public void associarImagens(List<String> links) {
         imagensProduto.addAll(links.stream().map(link -> new ImagemProduto(link, this)).collect(Collectors.toList()));
     }
