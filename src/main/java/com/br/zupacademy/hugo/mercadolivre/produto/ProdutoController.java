@@ -4,6 +4,7 @@ import com.br.zupacademy.hugo.mercadolivre.categoria.CategoriaRepository;
 import com.br.zupacademy.hugo.mercadolivre.produto.imagem.NovaImagemRequest;
 import com.br.zupacademy.hugo.mercadolivre.produto.imagem.Uploader;
 import com.br.zupacademy.hugo.mercadolivre.produto.opiniao.NovaOpiniaoRequest;
+import com.br.zupacademy.hugo.mercadolivre.produto.pergunta.NovaPerguntaRequest;
 import com.br.zupacademy.hugo.mercadolivre.usuario.Usuario;
 import com.br.zupacademy.hugo.mercadolivre.util.validator.ExistsId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,5 +82,24 @@ public class ProdutoController {
         produto.associarOpiniao(opiniaoRequest.toModel(produto, usuario));
 
         produtoRepository.save(produto);
+    }
+
+
+    @PostMapping("/{idProduto}/pergunta")
+    @Transactional
+    public void cadastrarPergunta(@RequestBody @Valid NovaPerguntaRequest perguntaRequest,
+                                  @PathVariable Long idProduto,
+                                  @AuthenticationPrincipal Usuario usuario){
+
+        Optional<Produto> produtoOptional = produtoRepository.findById(idProduto);
+
+        if(produtoOptional.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não foi possível encontrar um produto com id " + idProduto);
+
+        Produto produto = produtoOptional.get();
+
+        if(usuario.getId() == produto.getUsuario().getId()) throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Você não pode enviar uma pergunta para o seu próprio produto");
+
+        System.out.println("Pergunta feita");
+
     }
 }
