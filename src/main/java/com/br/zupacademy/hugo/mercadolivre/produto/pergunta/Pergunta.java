@@ -39,4 +39,8 @@ public class Pergunta {
     @Deprecated
     public Pergunta() {
     }
+
+    public Produto getProduto() {
+        return produto;
+    }
 }
