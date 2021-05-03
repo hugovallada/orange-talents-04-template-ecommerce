@@ -8,8 +8,11 @@ import com.br.zupacademy.hugo.mercadolivre.produto.pergunta.PerguntaResponse;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 
 public class ProdutoDetalheResponse {
 
@@ -23,43 +26,23 @@ public class ProdutoDetalheResponse {
 
     private Integer totalDeOpinioes;
 
-    private List<CaracteristicaResponse> caracteristicas = new ArrayList<>();
+    private Set<CaracteristicaResponse> caracteristicas = new HashSet<>();
 
-    private List<OpiniaoResponse> opinioes = new ArrayList<>();
+    private Set<OpiniaoResponse> opinioes = new HashSet<>();
 
-    private List<PerguntaResponse> perguntas = new ArrayList<>();
+    private Set<PerguntaResponse> perguntas = new HashSet<>();
 
     private List<ImagemResponse> imagens = new ArrayList<>();
 
-    public ProdutoDetalheResponse(String nome, BigDecimal preco, String descricao,
-                                  List<CaracteristicaResponse> caracteristicas, List<OpiniaoResponse> opinioes,
-                                  List<PerguntaResponse> perguntas, List<ImagemResponse> imagens, Integer totalDeOpinioes,
-                                  Double media) {
-        this.nome = nome;
-        this.preco = preco;
-        this.descricao = descricao;
-        this.caracteristicas = caracteristicas;
-        this.opinioes = opinioes;
-        this.perguntas = perguntas;
-        this.imagens = imagens;
-        this.totalDeOpinioes = totalDeOpinioes;
-        this.media = media;
+    public ProdutoDetalheResponse(Produto produto){
+        this.nome = produto.getNome();
+        this.preco = produto.getValor();
+        this.descricao = produto.getDescricao();
+        this.caracteristicas = produto.getCaracteristicaProdutos().stream().map(CaracteristicaResponse::new).collect(Collectors.toSet());
+        this.opinioes = produto.getOpinioesProdutos().stream().map(OpiniaoResponse::new).collect(Collectors.toSet());
+        this.perguntas = produto.getPerguntas().stream().map(PerguntaResponse::new).collect(Collectors.toSet());
+        this.imagens = produto.getImagensProduto().stream().map(ImagemResponse::new).collect(Collectors.toList());
     }
-
-    public static ProdutoDetalheResponse toResponse(Produto produto) {
-        return new ProdutoDetalheResponse(
-                produto.getNome(),
-                produto.getValor(),
-                produto.getDescricao(),
-                produto.getCaracteristicaProdutos().stream().map(CaracteristicaResponse::toResponse).collect(Collectors.toList()),
-                produto.getOpinioesProdutos().stream().map(OpiniaoResponse::toResponse).collect(Collectors.toList()),
-                produto.getPerguntas().stream().map(PerguntaResponse::toResponse).collect(Collectors.toList()),
-                produto.getImagensProduto().stream().map(ImagemResponse::toResponse).collect(Collectors.toList()),
-                produto.getTotalDeOpinioes(),
-                produto.getMediaOpinioes()
-        );
-    }
-
 
     public String getNome() {
         return nome;
@@ -74,22 +57,23 @@ public class ProdutoDetalheResponse {
     }
 
     public Double getMedia() {
-        return media;
+        DoubleStream nota = opinioes.stream().mapToDouble(opiniao -> opiniao.getNota());
+        return nota.average().orElseGet(()-> 0.0);
     }
 
     public Integer getTotalDeOpinioes() {
-        return totalDeOpinioes;
+        return opinioes.size();
     }
 
-    public List<CaracteristicaResponse> getCaracteristicas() {
+    public Set<CaracteristicaResponse> getCaracteristicas() {
         return caracteristicas;
     }
 
-    public List<OpiniaoResponse> getOpinioes() {
+    public Set<OpiniaoResponse> getOpinioes() {
         return opinioes;
     }
 
-    public List<PerguntaResponse> getPerguntas() {
+    public Set<PerguntaResponse> getPerguntas() {
         return perguntas;
     }
 

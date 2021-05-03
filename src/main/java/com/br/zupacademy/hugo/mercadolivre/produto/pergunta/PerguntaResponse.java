@@ -15,21 +15,15 @@ public class PerguntaResponse {
     @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDateTime dataPergunta;
 
-    public PerguntaResponse(Long id, String titulo, String username, LocalDateTime dataPergunta) {
-        this.id = id;
-        this.titulo = titulo;
-        this.username = username;
-        this.dataPergunta = dataPergunta;
+
+
+    public PerguntaResponse(Pergunta pergunta){
+        this.id = pergunta.getId();
+        this.titulo = pergunta.getTitulo();
+        this.username = pergunta.getUsuario().getUsername();
+        this.dataPergunta = pergunta.getInstanteDeRegistro();
     }
 
-    public static PerguntaResponse toResponse(Pergunta pergunta){
-        return new PerguntaResponse(
-                pergunta.getId(),
-                pergunta.getTitulo(),
-                pergunta.getUsuario().getUsername(),
-                pergunta.getInstanteDeRegistro()
-        );
-    }
 
     public Long getId() {
         return id;

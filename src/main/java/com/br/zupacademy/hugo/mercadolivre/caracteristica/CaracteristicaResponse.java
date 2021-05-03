@@ -8,19 +8,12 @@ public class CaracteristicaResponse {
 
     private String descricao;
 
-    public CaracteristicaResponse(Long id, String nome, String descricao) {
-        this.id = id;
-        this.nome = nome;
-        this.descricao = descricao;
+    public CaracteristicaResponse(CaracteristicaProduto caracteristicaProduto){
+        this.id = caracteristicaProduto.getId();
+        this.nome = caracteristicaProduto.getNome();
+        this.descricao = caracteristicaProduto.getDescricao();
     }
 
-    public static CaracteristicaResponse toResponse(CaracteristicaProduto caracteristicaProduto){
-        return new CaracteristicaResponse(
-                caracteristicaProduto.getId(),
-                caracteristicaProduto.getNome(),
-                caracteristicaProduto.getDescricao()
-        );
-    }
 
     public Long getId() {
         return id;

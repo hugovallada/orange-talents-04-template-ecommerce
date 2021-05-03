@@ -4,13 +4,11 @@ public class ImagemResponse {
 
     private String link;
 
-    public ImagemResponse(String link) {
-        this.link = link;
+    public ImagemResponse(ImagemProduto imagem){
+        this.link = imagem.getLink();
     }
 
-    public static ImagemResponse toResponse(ImagemProduto imagem) {
-        return new ImagemResponse(imagem.getLink());
-    }
+
 
     public String getLink() {
         return link;

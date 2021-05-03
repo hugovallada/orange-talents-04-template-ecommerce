@@ -12,23 +12,14 @@ public class OpiniaoResponse {
 
     private String username;
 
-    public OpiniaoResponse(Long id, String titulo, String descricao, Integer nota, String username) {
-        this.id = id;
-        this.titulo = titulo;
-        this.descricao = descricao;
-        this.nota = nota;
-        this.username = username;
+    public OpiniaoResponse(OpiniaoProduto opiniaoProduto){
+        this.id = opiniaoProduto.getId();;
+        this.titulo = opiniaoProduto.getTitulo();
+        this.descricao = opiniaoProduto.getDescricao();
+        this.nota = opiniaoProduto.getNota();
+        this.username = opiniaoProduto.getUsuario().getUsername();
     }
 
-    public static OpiniaoResponse toResponse(OpiniaoProduto opiniaoProduto){
-        return new OpiniaoResponse(
-                opiniaoProduto.getId(),
-                opiniaoProduto.getTitulo(),
-                opiniaoProduto.getDescricao(),
-                opiniaoProduto.getNota(),
-                opiniaoProduto.getUsuario().getUsername()
-        );
-    }
 
     public Long getId() {
         return id;
