@@ -1,6 +1,7 @@
-package com.br.zupacademy.hugo.mercadolivre.produto;
+package com.br.zupacademy.hugo.mercadolivre.produto.detalhe;
 
 import com.br.zupacademy.hugo.mercadolivre.caracteristica.CaracteristicaResponse;
+import com.br.zupacademy.hugo.mercadolivre.produto.Produto;
 import com.br.zupacademy.hugo.mercadolivre.produto.imagem.ImagemResponse;
 import com.br.zupacademy.hugo.mercadolivre.produto.opiniao.OpiniaoResponse;
 import com.br.zupacademy.hugo.mercadolivre.produto.pergunta.PerguntaResponse;

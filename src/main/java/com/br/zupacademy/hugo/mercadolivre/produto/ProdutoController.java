@@ -1,22 +1,16 @@
 package com.br.zupacademy.hugo.mercadolivre.produto;
 
 import com.br.zupacademy.hugo.mercadolivre.categoria.CategoriaRepository;
+import com.br.zupacademy.hugo.mercadolivre.produto.detalhe.ProdutoDetalheResponse;
 import com.br.zupacademy.hugo.mercadolivre.produto.imagem.NovaImagemRequest;
 import com.br.zupacademy.hugo.mercadolivre.produto.imagem.Uploader;
 import com.br.zupacademy.hugo.mercadolivre.produto.opiniao.NovaOpiniaoRequest;
-import com.br.zupacademy.hugo.mercadolivre.produto.pergunta.NovaPerguntaRequest;
-import com.br.zupacademy.hugo.mercadolivre.produto.pergunta.Pergunta;
 import com.br.zupacademy.hugo.mercadolivre.usuario.Usuario;
-import com.br.zupacademy.hugo.mercadolivre.util.email.DevEmailDePerguntas;
-import com.br.zupacademy.hugo.mercadolivre.util.email.DisparadorDeEmail;
-import com.br.zupacademy.hugo.mercadolivre.util.validator.ExistsId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.AccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -88,17 +82,6 @@ public class ProdutoController {
     }
 
 
-    @GetMapping("/{idProduto}")
-    public ResponseEntity<ProdutoDetalheResponse> detalharProduto(@PathVariable Long idProduto){
-        Optional<Produto> produtoOptional = produtoRepository.findById(idProduto);
 
-        if(produtoOptional.isPresent()){
-            ProdutoDetalheResponse response = ProdutoDetalheResponse.toResponse(produtoOptional.get());
-            System.out.println(response);
-            return ResponseEntity.ok(response);
-        }
-
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "O produto com id " + idProduto + " não foi encontrado");
-    }
 
 }
