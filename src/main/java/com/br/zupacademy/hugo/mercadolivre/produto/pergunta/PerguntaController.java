@@ -3,13 +3,12 @@ package com.br.zupacademy.hugo.mercadolivre.produto.pergunta;
 import com.br.zupacademy.hugo.mercadolivre.produto.Produto;
 import com.br.zupacademy.hugo.mercadolivre.produto.ProdutoRepository;
 import com.br.zupacademy.hugo.mercadolivre.usuario.Usuario;
-import com.br.zupacademy.hugo.mercadolivre.util.email.DevEmailDePerguntas;
-import com.br.zupacademy.hugo.mercadolivre.util.email.DisparadorDeEmail;
-import com.br.zupacademy.hugo.mercadolivre.util.email.EmailDePerguntas;
+import com.br.zupacademy.hugo.mercadolivre.util.email.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
@@ -26,7 +25,8 @@ public class PerguntaController {
     @Autowired
     private DisparadorDeEmail disparadorDeEmail;
 
-
+    @Autowired
+    private Emails emails;
 
 
     @PostMapping("/{idProduto}/pergunta")
@@ -48,7 +48,7 @@ public class PerguntaController {
 
         produtoRepository.save(produto);
 
-        disparadorDeEmail.dispararEmailDeNovaPergunta(produto.getUsuario().getUsername(), "Nova pergunta realizada para produto de id " + idProduto, new DevEmailDePerguntas(), pergunta);
+        emails.novaPergunta(pergunta);
     }
 
 }

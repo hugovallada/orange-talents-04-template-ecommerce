@@ -43,4 +43,8 @@ public class Pergunta {
     public Produto getProduto() {
         return produto;
     }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
 }
