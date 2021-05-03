@@ -145,4 +145,24 @@ public class Produto {
     public void associarPergunta(Pergunta pergunta){
         perguntas.add(pergunta);
     }
+
+    public double getMediaOpinioes(){
+        int total = 0, contador = 0;
+
+        for(OpiniaoProduto opiniao: opinioesProdutos){
+         total += opiniao.getNota();
+         contador++;
+        }
+
+        return contador > 0 ? total/contador : 0;
+    }
+
+    public int getTotalDeOpinioes(){
+        int total = 0;
+        for(OpiniaoProduto opiniao: opinioesProdutos){
+            total++;
+        }
+
+        return total;
+    }
 }

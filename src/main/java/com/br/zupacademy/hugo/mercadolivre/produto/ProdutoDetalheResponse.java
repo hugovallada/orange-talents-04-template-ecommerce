@@ -20,7 +20,7 @@ public class ProdutoDetalheResponse {
 
     private Double media;
 
-    private Integer totalNotas;
+    private Integer totalDeOpinioes;
 
     private List<CaracteristicaResponse> caracteristicas = new ArrayList<>();
 
@@ -32,7 +32,8 @@ public class ProdutoDetalheResponse {
 
     public ProdutoDetalheResponse(String nome, BigDecimal preco, String descricao,
                                   List<CaracteristicaResponse> caracteristicas, List<OpiniaoResponse> opinioes,
-                                  List<PerguntaResponse> perguntas, List<ImagemResponse> imagens) {
+                                  List<PerguntaResponse> perguntas, List<ImagemResponse> imagens, Integer totalDeOpinioes,
+                                  Double media) {
         this.nome = nome;
         this.preco = preco;
         this.descricao = descricao;
@@ -40,34 +41,24 @@ public class ProdutoDetalheResponse {
         this.opinioes = opinioes;
         this.perguntas = perguntas;
         this.imagens = imagens;
+        this.totalDeOpinioes = totalDeOpinioes;
+        this.media = media;
     }
 
-    public static ProdutoDetalheResponse toResponse(Produto produto){
-        return  new ProdutoDetalheResponse(
+    public static ProdutoDetalheResponse toResponse(Produto produto) {
+        return new ProdutoDetalheResponse(
                 produto.getNome(),
                 produto.getValor(),
                 produto.getDescricao(),
                 produto.getCaracteristicaProdutos().stream().map(CaracteristicaResponse::toResponse).collect(Collectors.toList()),
                 produto.getOpinioesProdutos().stream().map(OpiniaoResponse::toResponse).collect(Collectors.toList()),
                 produto.getPerguntas().stream().map(PerguntaResponse::toResponse).collect(Collectors.toList()),
-                produto.getImagensProduto().stream().map(ImagemResponse::toResponse).collect(Collectors.toList())
+                produto.getImagensProduto().stream().map(ImagemResponse::toResponse).collect(Collectors.toList()),
+                produto.getTotalDeOpinioes(),
+                produto.getMediaOpinioes()
         );
     }
 
-    @Override
-    public String toString() {
-        return "ProdutoDetalheResponse{" +
-                "nome='" + nome + '\'' +
-                ", preco=" + preco +
-                ", descricao='" + descricao + '\'' +
-                ", media=" + media +
-                ", totalNotas=" + totalNotas +
-                ", caracteristicas=" + caracteristicas +
-                ", opinioes=" + opinioes +
-                ", perguntas=" + perguntas +
-                ", imagens=" + imagens +
-                '}';
-    }
 
     public String getNome() {
         return nome;
@@ -85,8 +76,8 @@ public class ProdutoDetalheResponse {
         return media;
     }
 
-    public Integer getTotalNotas() {
-        return totalNotas;
+    public Integer getTotalDeOpinioes() {
+        return totalDeOpinioes;
     }
 
     public List<CaracteristicaResponse> getCaracteristicas() {
