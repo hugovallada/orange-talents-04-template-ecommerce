@@ -145,4 +145,13 @@ public class Produto {
     public void associarPergunta(Pergunta pergunta){
         perguntas.add(pergunta);
     }
+
+    public boolean abaterEstoque(Integer quantidade){
+        if(quantidade <= this.quantidade){
+            this.quantidade -= quantidade;
+            return true;
+        }
+
+        return false;
+    }
 }
