@@ -36,6 +36,7 @@ public class CompraController {
     public String realizarCompra(@RequestBody @Valid NovaCompraRequest novaCompraRequest,
                                  @AuthenticationPrincipal Usuario usuario, UriComponentsBuilder uriComponentsBuilder){
 
+
         // Não é necessário verificar se está presente, pois temos a validação @ExistsId
         Produto produto = produtoRepository.findById(novaCompraRequest.getIdProduto()).get();
 
@@ -51,17 +52,10 @@ public class CompraController {
 
         mailer.send("<html>...</html", "Nova compra", "info@nossomercadolivre", usuario.getUsername(), produto.getUsuario().getUsername());
 
-        if(novaCompraRequest.getGateway().equals(GatewayPagamento.PAGSEGURO)){
-            String urlRetornoPagSeguro = uriComponentsBuilder.path("/retorno-pagseguro/{id}")
-                    .build(novaCompra.getId()).toString();
+        String urlRetorno = uriComponentsBuilder.path("/" + novaCompraRequest.getGateway().toString().toLowerCase()+"/id")
+                .build(novaCompra.getId()).toString();
 
-            return "paypal.com/" + novaCompra.getId()+"?redirectUrl="+urlRetornoPagSeguro;
-        } else {
-            String urlRetornoPayPall = uriComponentsBuilder.path("/retorno-paypall/{id}")
-                    .build(novaCompra.getId()).toString();
-
-            return "paypal.com/" + novaCompra.getId()+"?redirectUrl="+urlRetornoPayPall;
-        }
+        return novaCompraRequest.getGateway().toString().toLowerCase()+".com/" + novaCompra.getId()+"?redirect="+urlRetorno;
 
     }
 }

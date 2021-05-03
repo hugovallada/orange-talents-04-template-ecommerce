@@ -4,6 +4,8 @@ import com.br.zupacademy.hugo.mercadolivre.produto.Produto;
 import com.br.zupacademy.hugo.mercadolivre.usuario.Usuario;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 @Entity
@@ -18,14 +20,18 @@ public class Compra {
     @ManyToOne
     private Usuario usuario;
 
+    @NotNull @Positive
     private BigDecimal valorDoProduto;
 
+    @NotNull @Positive
     private Integer quantidade;
 
     @Enumerated(EnumType.STRING)
+    @NotNull
     private GatewayPagamento gateway;
 
     @Enumerated(EnumType.STRING)
+    @NotNull
     private Status status = Status.INICIADA;
 
     public Compra(Produto produto, Usuario usuario, BigDecimal valorDoProduto, Integer quantidade, GatewayPagamento gateway) {
